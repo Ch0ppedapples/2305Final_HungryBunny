@@ -1,6 +1,10 @@
 # import random
 import pygame
 import sys
+from PIL import Image
+import glob
+import os
+import moviepy.editor as mpy
 
 
 
@@ -40,13 +44,19 @@ class Player:
         self.speed =24
         self.image = pygame.image.load(sprite_path).convert_alpha()
 
+
     def move(self, dir):
         self.pos=self.pos+dir *self.speed
 
     def draw(self, screen):
         screen.blit(self.image, self.pos)
 
-    
+class Animate:
+    def __init__(self, folderpath, imgseq, fps= 24):
+        self.folderpath = (r'C:\Users\Audrey\OneDrive\Desktop\Programming\Final_bunnyGame\2305Final_bunnyGame\src\bunnyAnim')
+        self.imgseq =glob.glob(os.path.join( folderpath,'*.png'))
+        imgseq.sort()
+        self.clip = mpy.ImageSequenceClip(imgseq, fps)
 
 def main():
     pygame.init()
@@ -62,7 +72,7 @@ def main():
 
     bg_tan_tile = pygame.image.load('tanTile.png').convert()    
 
-    playerMove = Player(pos=(50,50),sprite_path="stillbunny.png")
+    playerMove = Player(pos=(50,50),sprite_path= Animate)
 
     running = True
     while running:
@@ -73,13 +83,13 @@ def main():
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_UP]:
-                playerMove.move(pygame.Vector2(0,-1))
+                playerMove.move(pygame.Vector2(0,-2))
             if keys[pygame.K_DOWN]:
-                playerMove.move(pygame.Vector2(0,1))
+                playerMove.move(pygame.Vector2(0,2))
             if keys[pygame.K_LEFT]:
-                playerMove.move(pygame.Vector2(-1,0))
+                playerMove.move(pygame.Vector2(-2,0))
             if keys[pygame.K_RIGHT]:
-                playerMove.move(pygame.Vector2(1,0))
+                playerMove.move(pygame.Vector2(2,0))
 
         for x in range(0, width, bg_tan_tile.get_width()):
             for y in range(0, height, bg_tan_tile.get_height()):
