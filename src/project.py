@@ -8,12 +8,7 @@ import sys
 # class for making the maze
 # class for the player movement and animation of the player 
 
-class Player:
-    def __init__(self, pos =(0,0), sprite_path= ''):
-        self.pos =pygame.Vector2(pos)
-        self.speed =24
-        self.image = pygame.image.load(sprite_path).convert_alpha()
-        
+      
 
 # class Maze:
     
@@ -39,36 +34,56 @@ class Player:
     # def draw():
         # refernce to the tile method using 0 and 1 
 
+class Player:
+    def __init__(self, pos =(0,0), sprite_path= ''):
+        self.pos =pygame.Vector2(pos)
+        self.speed =24
+        self.image = pygame.image.load(sprite_path).convert_alpha()
+
+    def move(self, dir):
+        self.pos=self.pos+dir *self.speed
+
+    def draw(self, screen):
+        screen.blit(self.image, self.pos)
 
     
 
 def main():
     pygame.init()
 
-    clock = pygame.time.Clock()
-    pygame.display.set_caption("Hungry Bunny!!")
-    
     height = 900
     width = 700
+
+    clock = pygame.time.Clock()
     
     screen = pygame.display.set_mode((height,width), pygame.RESIZABLE)
+    pygame.display.set_caption("Hungry Bunny!!")
 
+    
 
-    playerMove = Player(pos=(height//2, width//2),
-                        sprite_path="stillbunny.png")
+    playerMove = Player(pos=(50,50),sprite_path="stillbunny.png")
 
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                pygame.quit()
                 sys.exit()
 
-          
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_UP]:
+                playerMove.move(pygame.Vector2(0,-1))
+            if keys[pygame.K_DOWN]:
+                playerMove.move(pygame.Vector2(0,1))
+            if keys[pygame.K_LEFT]:
+                playerMove.move(pygame.Vector2(-1,0))
+            if keys[pygame.K_RIGHT]:
+                playerMove.move(pygame.Vector2(1,0))
 
-        yellow = pygame.Color(255, 250, 179)
-        screen.fill(yellow)
+                        
 
+        
+        
 
         pygame.display.flip()
         clock.tick(24)
