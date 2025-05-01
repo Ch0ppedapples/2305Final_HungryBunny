@@ -8,7 +8,12 @@ import sys
 # class for making the maze
 # class for the player movement and animation of the player 
 
-
+class Player:
+    def __init__(self, pos =(0,0), sprite_path= ''):
+        self.pos =pygame.Vector2(pos)
+        self.speed =24
+        self.image = pygame.image.load(sprite_path).convert_alpha()
+        
 
 # class Maze:
     
@@ -35,10 +40,7 @@ import sys
         # refernce to the tile method using 0 and 1 
 
 
-    # def player():
-        # need a way to check tiles to determine if the player can go there or not
-
-        # input key result in movement of the player + animation of player 
+    
 
 def main():
     pygame.init()
@@ -51,7 +53,9 @@ def main():
     
     screen = pygame.display.set_mode((height,width), pygame.RESIZABLE)
 
-    
+
+    playerMove = Player(pos=(height//2, width//2),
+                        sprite_path="stillbunny.png")
 
     running = True
     while running:
