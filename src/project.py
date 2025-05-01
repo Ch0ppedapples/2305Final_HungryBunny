@@ -59,7 +59,8 @@ def main():
     screen = pygame.display.set_mode((height,width), pygame.RESIZABLE)
     pygame.display.set_caption("Hungry Bunny!!")
 
-    
+
+    bg_tan_tile = pygame.image.load('tanTile.png').convert()    
 
     playerMove = Player(pos=(50,50),sprite_path="stillbunny.png")
 
@@ -80,11 +81,12 @@ def main():
             if keys[pygame.K_RIGHT]:
                 playerMove.move(pygame.Vector2(1,0))
 
-                        
+        for x in range(0, width, bg_tan_tile.get_width()):
+            for y in range(0, height, bg_tan_tile.get_height()):
+                screen.blit(bg_tan_tile,(x,y))
+        playerMove.draw(screen)               
 
         
-        
-
         pygame.display.flip()
         clock.tick(24)
         
