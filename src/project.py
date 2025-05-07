@@ -40,24 +40,26 @@ import moviepy.editor as mpy
 
 
 class Player:
-    def __init__(self, pos =(0,0), sprite_path=''):
+    def __init__(self, pos =(0,0), sprite_path= ''):
         self.pos =pygame.Vector2(pos)
         self.speed =24
         self.image = pygame.image.load(sprite_path).convert_alpha()
        
+    def update(self):
+        self.setup_animate()
 
-        
 
     def move(self, dir):
         self.pos=self.pos+dir *self.speed
 
 
-    def setup_animate(self,folderpath, imgseq, fps= 24):
+    def setup_animate(self,folderpath, imgseq, fps= 5):
         self.folderpath = (r'C:\Users\Audrey\OneDrive\Desktop\Programming\Final_bunnyGame\2305Final_bunnyGame\src\bunnyAnim')
         self.imgseq =glob.glob(os.path.join( folderpath,'*.png'))
         imgseq.sort()
         self.clip = mpy.ImageSequenceClip(imgseq, fps)
-
+        self.clip.write_images_sequence('bunnyAnimation.mp4')
+        self.clip.close
 
     def draw(self, screen):
         screen.blit(self.image, self.pos)
@@ -79,7 +81,7 @@ def main():
 
     bg_tan_tile = pygame.image.load('tanTile.png').convert()    
 
-    playerMove = Player(pos=(50,50),sprite_path='')
+    playerMove = Player(pos=(50,50),sprite_path='bunnyAnimation.mp4')
 
     running = True
     while running:
