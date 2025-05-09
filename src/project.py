@@ -23,12 +23,13 @@ class Maze:
         self.size = 50
         self.width = self.size * 18
         self.height = self.size* 14
-        self.images ={0: 'greenTile.png', 1: 'tanTile.png', 2: 'carrotFinishLine.png'}
+        self.images ={0: pygame.image.load('greenTile.png').convert(), 1: pygame.image.load( 'tanTile.png').convert()
+                      , 2:pygame.image.load( 'carrotFinishLine.png').convert()}
         self.maze_map()
         
 
     def maze_map(self):
-        self.maze =[[1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0],
+        self.maze =[[1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0],
                     [0,0,1,0,1,1,1,1,1,1,0,0,1,1,1,0,1,1],
                     [0,0,1,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0],
                     [0,0,1,0,0,0,1,1,1,0,0,1,1,1,1,1,1,0],
@@ -106,7 +107,7 @@ def main():
 
     jackalope = Player(pos=(0,0),sprite_path='stillbunny.png')
     maze = Maze()
-    maze.draw(screen, size=50)
+    
 
     running = True
     while running:
@@ -129,7 +130,7 @@ def main():
             for y in range(0, height, bg_tan_tile.get_height()):
                 screen.blit(bg_tan_tile,(x,y))
         jackalope.draw(screen)               
-
+        maze.draw(screen, size=50)
         
         pygame.display.flip()
         clock.tick(24)
