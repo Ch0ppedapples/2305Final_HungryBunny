@@ -13,43 +13,51 @@ import moviepy.editor as mpy
 
       
 
-class Tile:
+
+        
+   
+
+class Maze:
     def __init__(self):
+
         self.size = 50
         self.width = self.size * 18
         self.height = self.size* 14
         self.images ={0: 'greenTile.png', 1: 'tanTile.png', 2: 'carrotFinishLine.png'}
+        self.maze_map()
         
-    def draw(self, screen):
-        Tile.draw(screen)
 
-class Maze:
-    def __init__(self):
-        self.maze =[[1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0]
-                    [0,0,1,0,1,1,1,1,1,1,0,0,1,1,1,0,1,1]
-                    [0,0,1,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0]
-                    [0,0,1,0,0,0,1,1,1,0,0,1,1,1,1,1,1,0]
-                    [0,0,1,1,1,0,0,0,1,0,1,1,0,0,0,1,0,0]
-                    [0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0]
-                    [0,0,0,0,1,0,0,0,1,0,0,1,0,1,1,1,0,0]
-                    [0,1,1,1,1,0,1,1,1,1,1,1,0,1,0,0,0,0]
-                    [0,0,0,0,1,0,1,0,0,1,0,0,0,1,1,1,1,0]
-                    [0,0,1,0,1,1,1,0,1,1,0,0,0,0,0,0,1,0]
-                    [0,0,1,0,1,0,0,0,1,0,0,1,1,0,1,1,1,1]
-                    [0,0,1,1,1,0,0,0,1,1,1,1,0,0,1,0,0,0]
-                    [0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,1,1,1]
+    def maze_map(self):
+        self.maze =[[1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0],
+                    [0,0,1,0,1,1,1,1,1,1,0,0,1,1,1,0,1,1],
+                    [0,0,1,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0],
+                    [0,0,1,0,0,0,1,1,1,0,0,1,1,1,1,1,1,0],
+                    [0,0,1,1,1,0,0,0,1,0,1,1,0,0,0,1,0,0],
+                    [0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0],
+                    [0,0,0,0,1,0,0,0,1,0,0,1,0,1,1,1,0,0],
+                    [0,1,1,1,1,0,1,1,1,1,1,1,0,1,0,0,0,0],
+                    [0,0,0,0,1,0,1,0,0,1,0,0,0,1,1,1,1,0],
+                    [0,0,1,0,1,1,1,0,1,1,0,0,0,0,0,0,1,0],
+                    [0,0,1,0,1,0,0,0,1,0,0,1,1,0,1,1,1,1],
+                    [0,0,1,1,1,0,0,0,1,1,1,1,0,0,1,0,0,0],
+                    [0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,1,1,1],
                     [1,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,2]]
         
-    def draw(self, screen):
-        screen.clear()
+    def draw(self, screen, size):
+        
         for row in range(len(self.maze)):
-            for colum in range (len(self.maze[row])):
-                
+            for column in range (len(self.maze[row])):
+                x = column * size 
+                y = row * size
+                tile = self.images[self.maze[row][column]]
+                screen.blit(tile,(x,y))
+            
+
 
                 
                 
 
-        Maze.draw(screen)
+     
         
 
 
@@ -97,6 +105,8 @@ def main():
     bg_tan_tile = pygame.image.load('tanTile.png').convert()    
 
     jackalope = Player(pos=(0,0),sprite_path='stillbunny.png')
+    maze = Maze()
+    maze.draw(screen, size=50)
 
     running = True
     while running:
