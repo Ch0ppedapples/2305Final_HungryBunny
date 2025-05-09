@@ -19,7 +19,7 @@ class Tile:
         self.size = 50
         self.width = self.size * 18
         self.height = self.size* 14
-        self.images ={'0': 'greenTile.png', '1': 'tanTile.png', '2': 'carrot.png'}
+        self.images ={'0': 'greenTile.png', '1': 'tanTile.png', '2': 'carrotFinishLine.png'}
        
 
 class Maze:
@@ -38,8 +38,9 @@ class Maze:
                     ['0,0,1,1,1,0,0,0,1,1,1,1,0,0,1,0,0,0']
                     ['0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,1,1,1']
                     ['1,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,2']]
-       
-    
+        
+    def draw(self, screen):
+        Maze.draw(screen)
         
 
 
@@ -86,7 +87,7 @@ def main():
 
     bg_tan_tile = pygame.image.load('tanTile.png').convert()    
 
-    playerMove = Player(pos=(50,50),sprite_path='bunnyAnimation.mp4')
+    jackalope = Player(pos=(0,0),sprite_path='stillbunny.png')
 
     running = True
     while running:
@@ -97,18 +98,18 @@ def main():
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_UP]:
-                playerMove.move(pygame.Vector2(0,-2))
+                jackalope.move(pygame.Vector2(0,-2))
             if keys[pygame.K_DOWN]:
-                playerMove.move(pygame.Vector2(0,2))
+                jackalope.move(pygame.Vector2(0,2))
             if keys[pygame.K_LEFT]:
-                playerMove.move(pygame.Vector2(-2,0))
+                jackalope.move(pygame.Vector2(-2,0))
             if keys[pygame.K_RIGHT]:
-                playerMove.move(pygame.Vector2(2,0))
+                jackalope.move(pygame.Vector2(2,0))
 
         for x in range(0, width, bg_tan_tile.get_width()):
             for y in range(0, height, bg_tan_tile.get_height()):
                 screen.blit(bg_tan_tile,(x,y))
-        playerMove.draw(screen)               
+        jackalope.draw(screen)               
 
         
         pygame.display.flip()
