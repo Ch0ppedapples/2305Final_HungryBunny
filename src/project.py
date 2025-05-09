@@ -75,6 +75,8 @@ class Player:
 
     def move(self, dir):
         self.pos=self.pos+dir *self.speed
+        
+
 
 
     def setup_animate(self,folderpath, imgseq, fps= 5):
@@ -105,7 +107,7 @@ def main():
 
     bg_tan_tile = pygame.image.load('tanTile.png').convert()    
 
-    jackalope = Player(pos=(0,0),sprite_path='stillbunny.png')
+    jackalope = Player(pos=(0,0),sprite_path='stillbunnyresize.png')
     maze = Maze()
     
 
@@ -129,8 +131,9 @@ def main():
         for x in range(0, width, bg_tan_tile.get_width()):
             for y in range(0, height, bg_tan_tile.get_height()):
                 screen.blit(bg_tan_tile,(x,y))
-        jackalope.draw(screen)               
+                      
         maze.draw(screen, size=50)
+        jackalope.draw(screen) 
         
         pygame.display.flip()
         clock.tick(24)
