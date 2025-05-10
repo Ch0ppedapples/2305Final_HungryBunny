@@ -12,7 +12,10 @@ import moviepy.editor as mpy
 # class for the player movement and animation of the player 
 
       
-
+#  if tile is >0 then the jackalope can move 
+# if not the jackalope does not move 
+#  elif tile == 2 
+    # title card.draw(screen)
 
         
    
@@ -24,7 +27,7 @@ class Maze:
         self.width = self.size * 18
         self.height = self.size* 14
         self.images ={0: pygame.image.load('greenTile.png').convert(), 1: pygame.image.load( 'tanTile.png').convert()
-                      , 2:pygame.image.load( 'carrotFinishLine.png').convert()}
+                      , 2:pygame.image.load( 'carrotFinishLine.png').convert_alpha()}
         self.maze_map()
         
 
@@ -67,18 +70,22 @@ class Maze:
 
 
 class Player:
-    def __init__(self, pos =(0,0), sprite_path= ''):
+    def __init__(self, pos =(0,0), sprite_path= '', maze =None):
         self.pos =pygame.Vector2(pos)
         self.speed =24
         self.image = pygame.image.load(sprite_path).convert_alpha()
+        self.maze = maze
 
 
     def move(self, dir):
         self.pos=self.pos+dir *self.speed
         
+        
+
+        
 
 
-
+    # need to figure out how to apply the animation to the player( will run but does not animat movement)
     def setup_animate(self,folderpath, imgseq, fps= 5):
         self.folderpath = (r'C:\Users\Audrey\OneDrive\Desktop\Programming\Final_bunnyGame\2305Final_bunnyGame\src\bunnyAnim')
         self.imgseq =glob.glob(os.path.join( folderpath,'*.png'))
@@ -91,7 +98,6 @@ class Player:
         screen.blit(self.image, self.pos)
 
 
-# make a seprate functuion to make the animation 
 
 def main():
     pygame.init()
@@ -106,9 +112,11 @@ def main():
 
 
     bg_tan_tile = pygame.image.load('tanTile.png').convert()    
-
-    jackalope = Player(pos=(0,0),sprite_path='stillbunnyresize.png')
+    win_titlecard= pygame.image.load('Win_tilecard.png').convert()
+    
     maze = Maze()
+    jackalope = Player(pos=(0,0),sprite_path='stillbunnyresize.png', maze =maze)
+    
     
 
     running = True
@@ -117,6 +125,8 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            
+
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_UP]:
@@ -134,6 +144,7 @@ def main():
                       
         maze.draw(screen, size=50)
         jackalope.draw(screen) 
+        screen.blit(win_titlecard, (0,0))
         
         pygame.display.flip()
         clock.tick(24)
