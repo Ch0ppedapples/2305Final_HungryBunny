@@ -27,8 +27,10 @@ class Maze:
         self.width = self.size * 18
         self.height = self.size* 14
         self.images ={0: pygame.image.load('greenTile.png').convert(), 1: pygame.image.load( 'tanTile.png').convert()
-                      , 2:pygame.image.load( 'carrotFinishLine.png').convert_alpha()}
+                      , 2:pygame.transform.scale(pygame.image.load('carrot_2.png').convert(), (self.size, self.size))}
         self.maze_map()
+
+        
         
 
     def maze_map(self):
@@ -74,12 +76,15 @@ class Player:
         self.pos =pygame.Vector2(pos)
         self.speed =24
         self.image = pygame.image.load(sprite_path).convert_alpha()
-        self.maze = maze
+        # self.maze = Maze.maze_map()
 
 
     def move(self, dir):
         self.pos=self.pos+dir *self.speed
-        
+        # self.pos//50
+        # self.maze[grid_y][grid_x]
+
+
         
 
         
@@ -144,7 +149,7 @@ def main():
                       
         maze.draw(screen, size=50)
         jackalope.draw(screen) 
-        screen.blit(win_titlecard, (0,0))
+        # screen.blit(win_titlecard, (0,0))
         
         pygame.display.flip()
         clock.tick(24)
