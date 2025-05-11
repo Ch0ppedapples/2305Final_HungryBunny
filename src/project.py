@@ -70,15 +70,22 @@ class Player:
         self.speed =24
         self.image = pygame.transform.scale(pygame.image.load(sprite_path).convert_alpha(),(self.size, self.size))
         self.maze = maze.maze_map()
+ 
 
 
     def move(self, dir):
         self.pos=self.pos+dir *self.size
         
+    def check_if_path(self):
         
-    # def check_if_path(self):
-
-    
+        row =self.pos.x//50
+        column =self.pos.y//50
+        if (self.maze[row][column])>0:
+                    return True
+        elif not (self.maze[row][column]) >0:
+                    return False
+          
+         
     
     # def check_win(self, screen):
     #     row= self.pos.y//50
