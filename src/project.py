@@ -7,8 +7,7 @@ import moviepy.editor as mpy
 
 
 
-# class to defin the the maze tiles and what they do (wall, passage, finish)
-# class for making the maze
+
 # class for the player movement and animation of the player 
 
       
@@ -34,6 +33,7 @@ class Maze:
         
 
     def maze_map(self):
+
         self.maze =[[1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0],
                     [0,0,1,0,1,1,1,1,1,1,0,0,1,1,1,0,1,1],
                     [0,0,1,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0],
@@ -48,6 +48,7 @@ class Maze:
                     [0,0,1,1,1,0,0,0,1,1,1,1,0,0,1,0,0,0],
                     [0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,1,1,1],
                     [1,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,2]]
+       
         
     def draw(self, screen, size):
         
@@ -59,48 +60,38 @@ class Maze:
                 screen.blit(tile,(x,y))
             
 
-
-                
-                
-
-     
-        
-
-
-    # def draw():
-        # refernce to the tile method using 0 and 1 
+    
 
 
 class Player:
     def __init__(self, pos =(0,0), sprite_path= '', maze =None):
+    
         self.pos =pygame.Vector2(pos)
         self.speed =24
         self.image = pygame.image.load(sprite_path).convert_alpha()
-        # self.maze = Maze.maze_map()
+        self.maze = maze.maze_map()
 
 
     def move(self, dir):
         self.pos=self.pos+dir *self.speed
-        # self.pos//50
-        # self.maze[grid_y][grid_x]
-
-
         
-
         
+    # def check_if_path(self):
 
+    
+    
+    def check_win(self, screen):
+        print(self.pos)
+        row= self.pos.y//50
+        column = self.pos.x//50
+        if row==14 and column == 18:
+            screen.blit('win_titlecard', (0,0))
 
-    # need to figure out how to apply the animation to the player( will run but does not animat movement)
-    def setup_animate(self,folderpath, imgseq, fps= 5):
-        self.folderpath = (r'C:\Users\Audrey\OneDrive\Desktop\Programming\Final_bunnyGame\2305Final_bunnyGame\src\bunnyAnim')
-        self.imgseq =glob.glob(os.path.join( folderpath,'*.png'))
-        imgseq.sort()
-        self.clip = mpy.ImageSequenceClip(imgseq, fps)
-        self.clip.write_images_sequence('bunnyAnimation.mp4')
-        self.clip.close
 
     def draw(self, screen):
         screen.blit(self.image, self.pos)
+
+
 
 
 
@@ -117,7 +108,7 @@ def main():
 
 
     bg_tan_tile = pygame.image.load('tanTile.png').convert()    
-    win_titlecard= pygame.image.load('Win_tilecard.png').convert()
+    # win_titlecard= pygame.image.load('Win_tilecard.png').convert()
     
     maze = Maze()
     jackalope = Player(pos=(0,0),sprite_path='stillbunnyresize.png', maze =maze)
@@ -126,6 +117,7 @@ def main():
 
     running = True
     while running:
+       
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -146,7 +138,7 @@ def main():
         for x in range(0, width, bg_tan_tile.get_width()):
             for y in range(0, height, bg_tan_tile.get_height()):
                 screen.blit(bg_tan_tile,(x,y))
-                      
+        jackalope.check_win(screen)          
         maze.draw(screen, size=50)
         jackalope.draw(screen) 
         # screen.blit(win_titlecard, (0,0))
