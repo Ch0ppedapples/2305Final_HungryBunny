@@ -65,10 +65,10 @@ class Maze:
 
 class Player:
     def __init__(self, pos =(0,0), sprite_path= '', maze =None):
-    
+        self.size = 50
         self.pos =pygame.Vector2(pos)
         self.speed =24
-        self.image = pygame.image.load(sprite_path).convert_alpha()
+        self.image = pygame.transform.scale(pygame.image.load(sprite_path).convert_alpha(),(self.size, self.size))
         self.maze = maze.maze_map()
 
 
@@ -80,12 +80,13 @@ class Player:
 
     
     
-    def check_win(self, screen):
-        print(self.pos)
-        row= self.pos.y//50
-        column = self.pos.x//50
-        if row==14 and column == 18:
-            screen.blit('win_titlecard', (0,0))
+    # def check_win(self, screen):
+    #     row= self.pos.y//50
+    #     column = self.pos.x//50
+    #     win_titlecard = pygame.image.load('Win_tilecard.png').convert()
+    #     if row==13 and column == 17:
+    #         screen.blit(win_titlecard,(0,0))
+    #     print(f"Player is at row {row}, column {column}")
 
 
     def draw(self, screen):
@@ -108,10 +109,10 @@ def main():
 
 
     bg_tan_tile = pygame.image.load('tanTile.png').convert()    
-    # win_titlecard= pygame.image.load('Win_tilecard.png').convert()
+    
     
     maze = Maze()
-    jackalope = Player(pos=(0,0),sprite_path='stillbunnyresize.png', maze =maze)
+    jackalope = Player(pos=(0,0),sprite_path='stillbunny.png', maze =maze)
     
     
 
@@ -138,10 +139,10 @@ def main():
         for x in range(0, width, bg_tan_tile.get_width()):
             for y in range(0, height, bg_tan_tile.get_height()):
                 screen.blit(bg_tan_tile,(x,y))
-        jackalope.check_win(screen)          
+        # jackalope.check_win(screen)          
         maze.draw(screen, size=50)
         jackalope.draw(screen) 
-        # screen.blit(win_titlecard, (0,0))
+        
         
         pygame.display.flip()
         clock.tick(24)
