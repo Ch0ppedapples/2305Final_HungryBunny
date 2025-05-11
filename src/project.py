@@ -73,7 +73,7 @@ class Player:
 
 
     def move(self, dir):
-        self.pos=self.pos+dir *self.speed
+        self.pos=self.pos+dir *self.size
         
         
     # def check_if_path(self):
@@ -128,13 +128,13 @@ def main():
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_UP]:
-                jackalope.move(pygame.Vector2(0,-2))
+                jackalope.move(pygame.Vector2(0,-1))
             if keys[pygame.K_DOWN]:
-                jackalope.move(pygame.Vector2(0,2))
+                jackalope.move(pygame.Vector2(0,1))
             if keys[pygame.K_LEFT]:
-                jackalope.move(pygame.Vector2(-2,0))
+                jackalope.move(pygame.Vector2(-1,0))
             if keys[pygame.K_RIGHT]:
-                jackalope.move(pygame.Vector2(2,0))
+                jackalope.move(pygame.Vector2(1,0))
 
         for x in range(0, width, bg_tan_tile.get_width()):
             for y in range(0, height, bg_tan_tile.get_height()):
