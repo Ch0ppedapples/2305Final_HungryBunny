@@ -71,42 +71,41 @@ class Player:
         self.pos =pygame.Vector2(pos)
         self.speed =24
         self.image = pygame.transform.scale(pygame.image.load(sprite_path).convert_alpha(),(self.size, self.size))
-        self.maze = maze.maze_map() if maze else[]
-        
+        self.maze = maze.maze_map() if maze else []
+    
 
 
     def move(self, dir):
-        if self.check_if_path(dir):
-            self.pos=+ dir *self.size
+        # if self.check_if_path(dir):
+            self.pos= self.pos+ dir *self.size
         
     def check_if_path(self, dir):
         check_poss_pos =self.pos + dir
-        row =int(check_poss_pos.x//50)
-        column =int(check_poss_pos.y//50)
+        row =int(check_poss_pos.y//self.size)
+        column =int(check_poss_pos.x//self.size)
         if row < 0 or row >= 14:
              return False
         if column < 0 or column >= 18:
              return False
         print(self.maze[row][column]) 
-        if self.maze[row][column] == 1 or self.maze[row][column] == 2:
-                    return True
-        elif (self.maze[row][column]) ==0:
-                    return False
         
-          
-         
-    
-    # def check_win(self, screen):
-    #     row= self.pos.y//50
-    #     column = self.pos.x//50
-    #     win_titlecard = pygame.image.load('Win_tilecard.png').convert()
-    #     if row==13 and column == 17:
-    #         screen.blit(win_titlecard,(0,0))
-    #     print(f"Player is at row {row}, column {column}")
+        if row < 0 or row >= len(self.maze) or column < 0 or column >= len(self.maze[0]):
+            return False
+        
+        maze_value = self.maze[row][column]
+        return maze_value > 0
 
 
     def draw(self, screen):
         screen.blit(self.image, self.pos)
+
+
+    # def draw_goal(self, screen, winning_image):
+    #     winning_image =pygame.image.load('Win_tilecard.png').convert()
+    #     row = int(self.pos.y//self.size)
+    #     column = int(self.pos.x//self.size)
+    #     if self.maze[row][column] == 2:
+    #         screen.blit( winning_image, (0,0))
 
 
 
@@ -124,7 +123,7 @@ def main():
     pygame.display.set_caption("Hungry Bunny!!")
 
 
-    bg_tan_tile = pygame.image.load('tanTile.png').convert()    
+      
     
     
     maze = Maze()
@@ -152,9 +151,9 @@ def main():
             if keys[pygame.K_RIGHT]:
                 jackalope.move(pygame.Vector2(1,0))
 
-        for x in range(0, width, bg_tan_tile.get_width()):
-            for y in range(0, height, bg_tan_tile.get_height()):
-                screen.blit(bg_tan_tile,(x,y))
+        for x in range(0, width, screen.get_width()):
+            for y in range(0, height, screen.get_height()):
+                screen.blit(screen,(x,y))
         # jackalope.check_win(screen)          
         maze.draw(screen, size=50)
         jackalope.draw(screen) 
