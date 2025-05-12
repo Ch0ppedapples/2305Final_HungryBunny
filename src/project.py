@@ -71,15 +71,22 @@ class Player:
         self.pos =pygame.Vector2(pos)
         self.speed =24
         self.image = pygame.transform.scale(pygame.image.load(sprite_path).convert_alpha(),(self.size, self.size))
-        self.maze = maze.maze_map() if maze else []
+        self.maze = maze.maze_map() 
     
 
 
     def move(self, dir):
-        # if self.check_if_path(dir):
-            self.pos= self.pos+ dir *self.size
-        
+        if self.check_if_path(dir):
+            # print(self.pos)
+            # print('before...')
+            new_pos = self.pos +dir * self.speed
+            self.pos =new_pos
+            # print(self.pos) 
+            # print('after...')
+
+          
     def check_if_path(self, dir):
+        
         check_poss_pos =self.pos + dir
         row =int(check_poss_pos.y//self.size)
         column =int(check_poss_pos.x//self.size)
@@ -87,14 +94,16 @@ class Player:
              return False
         if column < 0 or column >= 18:
              return False
-        print(self.maze[row][column]) 
-        
+        print(self.maze[row][column])
+        print('value before...')
         if row < 0 or row >= len(self.maze) or column < 0 or column >= len(self.maze[0]):
             return False
         
         maze_value = self.maze[row][column]
-        return maze_value > 0
-
+        print(maze_value)
+        print('value after...')
+        if maze_value >0:
+            return True
 
     def draw(self, screen):
         screen.blit(self.image, self.pos)
