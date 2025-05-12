@@ -136,8 +136,11 @@ def main():
     win_tilecard_surface = pygame.image.load('Win_tilecard.png').convert()
     jackalope = Player(pos=(0,0),sprite_path='stillbunny.png', maze =maze)
     
+    print(jackalope.pos)
+    maze.draw(screen, size=50)
+    jackalope.draw(screen) 
     
-
+    won =False
     running = True
     while running:
        
@@ -162,14 +165,20 @@ def main():
             for y in range(0, height, screen.get_height()):
                 screen.blit(screen,(x,y))
             if (jackalope.pos) ==[850,650] :
-                print('Blitting win_tilecard_surface')
+                won = True
+            if won:
                 screen.blit( win_tilecard_surface, (0,0))
-                pygame.display.update()
-        # jackalope.check_win(screen)  
-        print(jackalope.pos)
-        maze.draw(screen, size=50)
-        jackalope.draw(screen) 
+                pygame.display.flip()
 
+            if not won:
+                maze.draw(screen, size=50)
+                jackalope.draw(screen)
+            else:
+                screen.blit(win_tilecard_surface, (0, 0))
+
+        print(jackalope.pos)
+       
+            
         
         pygame.display.flip()
         clock.tick(24)
