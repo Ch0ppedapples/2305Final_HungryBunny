@@ -42,7 +42,7 @@ class Maze:
                     [0,0,1,0,1,0,0,0,1,0,0,1,1,0,1,1,1,1],
                     [0,0,1,1,1,0,0,0,1,1,1,1,0,0,1,0,0,0],
                     [0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,1,1,1],
-                    [1,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,2]] #add right amout of lines
+                    [1,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,2]] 
         return self.maze
         
     def draw(self, screen, size):
@@ -67,51 +67,47 @@ class Player:
         self.speed =24
         self.image = pygame.transform.scale(pygame.image.load(sprite_path).convert_alpha(),(self.size, self.size))
         self.maze = maze.maze_map() 
+        self.allowed_pos = [[0,0],[0,650],[50,0],[50,350],[50,650],[100,650],[100,600],[100,550],[100,500],[100,450],[100,350],
+                        [100,200],[100,150],[100,100],[100,50],[100,0],[150,200],[150,350],[150,550],[200,550],[200,500],
+                        [200,450],[200,400],[200,350],[200,300],[200,250],[200,200],[200,100],[200,50],[250,50],
+                        [250,450],[300,650],[300,600],[300,450],[300,400],[300,350],[300,150],[300,100],[300,50],[350,50],
+                        [350,150],[350,350],[350,600],[400,600],[400,550],[400,500],[400,450],[400,350],[400,300],
+                        [400,250],[400,200],[400,150],[400,50],[450,0],[450,50],[450,350],[450,400],[450,450],[450,550],
+                        [500,550],[500,350],[500,200],[500,0],[550,0],[550,150],[550,200],[550,250],[550,300],[550,350],
+                        [550,500],[550,550],[550,600],[550,650],[600,650],[600,500],[600,150],[600,50],[650,50],
+                        [650,150],[650,300],[650,350],[650,400],[700,600],[700,550],[700,500],[700,400],[700,300],
+                        [700,150],[700,100],[700,50],[750,150],[750,200],[750,250],[750,300],[750,400],[750,500],
+                        [750,600],[800,600],[800,500],[800,450],[800,400],[800,150],[800,100],[800,50],[850,50],
+                        [850,500],[850,600], [850,650]] 
     
 
 
-    def move(self, dir):#dir
+    def move(self, dir):
         # if self.check_if_path(dir):
-        #     # print(self.pos)
-        #     # print('before...')
+            
         #     new_pos = self.pos +dir * self.speed
         #     self.pos =new_pos
-        #     # print(self.pos) 
-        #     # print('after...')
-        self.pos=self.pos+dir *self.size
-        print(self.pos//self.size)
-          
+            
+        self.pos=self.pos+dir *self.size #* self size make it to where the player can only move on tile size at a time 
+        # if self.pos 
+        
     # def check_if_path(self, dir):
         
-    #     check_poss_pos =self.pos + dir
-    #     row =int(check_poss_pos.y//self.size)
-    #     column =int(check_poss_pos.x//self.size)
-    #     print([row][column])
-    #     if row < 0 or row >= 14:
-    #          return False
-    #     if column < 0 or column >= 18:
-    #          return False
-    #     print(self.maze[row][column])
-    #     print('value before...')
-    #     if row < 0 or row >= len(self.maze) or column < 0 or column >= len(self.maze[0]):
-    #         return False
+        # check_poss_pos =self.pos + dir
+        # row =int(check_poss_pos.y//self.size)
+        # column =int(check_poss_pos.x//self.size)
         
-    #     maze_value = self.maze[row][column]
-    #     print(maze_value)
-    #     print('value after...')
-    #     if maze_value >0:
-    #         return True
+        # if row < 0 or row >= 14:
+        #      return False
+        # if column < 0 or column >= 18:
+        #      return False
+        
+    
 
     def draw(self, screen):
         screen.blit(self.image, self.pos)
 
 
-    # def draw_goal(self, screen, winning_image):
-    #     winning_image =pygame.image.load('Win_tilecard.png').convert()
-    #     row = int(self.pos.y//self.size)
-    #     column = int(self.pos.x//self.size)
-    #     if self.maze[row][column] == self.maze[17][13]:
-    #         screen.blit( winning_image, (0,0))
 
 
 
