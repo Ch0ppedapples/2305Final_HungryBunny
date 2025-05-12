@@ -27,7 +27,7 @@ class Maze:
         self.height = self.size* 14
         self.images ={0: pygame.image.load('greenTile.png').convert(), 1: pygame.image.load( 'tanTile.png').convert()
                       , 2:pygame.transform.scale(pygame.image.load('carrot_2.png').convert(), (self.size, self.size))}
-        self.maze_map()
+        self.maze = self.maze_map()
 
         
         
@@ -71,19 +71,24 @@ class Player:
         self.pos =pygame.Vector2(pos)
         self.speed =24
         self.image = pygame.transform.scale(pygame.image.load(sprite_path).convert_alpha(),(self.size, self.size))
-        self.maze = maze.maze_map()
+        self.maze = maze.maze_map() if maze else[]
         
 
 
     def move(self, dir):
         if self.check_if_path(dir):
-            self.pos=self.pos+dir *self.size
+            self.pos=+ dir *self.size
         
     def check_if_path(self, dir):
         check_poss_pos =self.pos + dir
         row =int(check_poss_pos.x//50)
         column =int(check_poss_pos.y//50)
-        if (self.maze[row][column])>0:
+        if row < 0 or row >= 14:
+             return False
+        if column < 0 or column >= 18:
+             return False
+        print(self.maze[row][column]) 
+        if self.maze[row][column] == 1 or self.maze[row][column] == 2:
                     return True
         elif (self.maze[row][column]) ==0:
                     return False
