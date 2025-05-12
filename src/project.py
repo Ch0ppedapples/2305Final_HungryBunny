@@ -48,7 +48,7 @@ class Maze:
                     [0,0,1,1,1,0,0,0,1,1,1,1,0,0,1,0,0,0],
                     [0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,1,1,1],
                     [1,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,2]]
-       
+        return self.maze
         
     def draw(self, screen, size):
         
@@ -58,32 +58,36 @@ class Maze:
                 y = row * size
                 tile = self.images[self.maze[row][column]]
                 screen.blit(tile,(x,y))
+
+   
             
 
     
 
 
 class Player:
-    def __init__(self, pos =(0,0), sprite_path= '', maze =None):
+    def __init__(self, pos =(0,0), sprite_path= '', maze =Maze.maze_map):
         self.size = 50
         self.pos =pygame.Vector2(pos)
         self.speed =24
         self.image = pygame.transform.scale(pygame.image.load(sprite_path).convert_alpha(),(self.size, self.size))
         self.maze = maze.maze_map()
- 
+        
 
 
     def move(self, dir):
-        self.pos=self.pos+dir *self.size
+        if self.check_if_path(dir):
+            self.pos=self.pos+dir *self.size
         
-    def check_if_path(self):
-        
-        row =self.pos.x//50
-        column =self.pos.y//50
+    def check_if_path(self, dir):
+        check_poss_pos =self.pos + dir
+        row =int(check_poss_pos.x//50)
+        column =int(check_poss_pos.y//50)
         if (self.maze[row][column])>0:
                     return True
-        elif not (self.maze[row][column]) >0:
+        elif (self.maze[row][column]) ==0:
                     return False
+        
           
          
     
