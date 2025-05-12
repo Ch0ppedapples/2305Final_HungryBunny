@@ -5,10 +5,6 @@ import moviepy.editor as mpy
 
 
 
-
-
-
-
         
    
 
@@ -86,6 +82,8 @@ class Player:
          self.pos=self.pos+dir *self.size
         elif not self.pos in self.allowed_pos:
             return False
+        if dir == pygame.Vector2(-1,0):
+            self.image = pygame.transform.flip(self.image, True, False)
     
 
     def draw(self, screen):
@@ -143,6 +141,7 @@ def main():
                 jackalope.move(pygame.Vector2(0,1))
             if keys[pygame.K_LEFT]:
                 jackalope.move(pygame.Vector2(-1,0))
+                
             if keys[pygame.K_RIGHT]:
                 jackalope.move(pygame.Vector2(1,0))
 
