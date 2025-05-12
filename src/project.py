@@ -1,8 +1,6 @@
 
 import pygame
 import sys
-import glob
-import os
 import moviepy.editor as mpy
 
 
@@ -83,24 +81,15 @@ class Player:
 
 
     def move(self, dir):
-        # if self.check_if_path(dir):
-            
-        #     new_pos = self.pos +dir * self.speed
-        #     self.pos =new_pos
-            
-        self.pos=self.pos+dir *self.size #* self size make it to where the player can only move on tile size at a time 
-        # if self.pos 
-        
-    # def check_if_path(self, dir):
-        
-        # check_poss_pos =self.pos + dir
-        # row =int(check_poss_pos.y//self.size)
-        # column =int(check_poss_pos.x//self.size)
-        
-        # if row < 0 or row >= 14:
-        #      return False
-        # if column < 0 or column >= 18:
-        #      return False
+        new_pos =self.pos +dir * self.size
+        if new_pos in self.allowed_pos:
+         self.pos=self.pos+dir *self.size
+        elif not self.pos in self.allowed_pos:
+            return False
+    
+
+    def draw(self, screen):
+        screen.blit(self.image, self.pos)
         
     
 
