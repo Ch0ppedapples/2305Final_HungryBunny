@@ -91,8 +91,6 @@ class Player:
         
     
 
-    def draw(self, screen):
-        screen.blit(self.image, self.pos)
 
 
 
@@ -140,8 +138,7 @@ def main():
             if keys[pygame.K_DOWN]:
                 jackalope.move(pygame.Vector2(0,1))
             if keys[pygame.K_LEFT]:
-                jackalope.move(pygame.Vector2(-1,0))
-                
+                jackalope.move(pygame.Vector2(-1,0))      
             if keys[pygame.K_RIGHT]:
                 jackalope.move(pygame.Vector2(1,0))
 
@@ -160,7 +157,7 @@ def main():
             else:
                 screen.blit(win_tilecard_surface, (0, 0))
 
-        print(jackalope.pos)
+       
        
             
         
